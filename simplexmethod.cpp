@@ -141,7 +141,7 @@ int read_problem(int *n,int *m,float obj[NMAX][EMAX])//read the from input file.
 bool initial_dictionary(int n,int m,float obj[NMAX][EMAX])
 {
 			bool feasible = true;
-			printf("Given Problem: \n Maximize\t");
+			printf("\n=============================================================================================\nGiven Problem: \n Maximize\t");
 	
 			for(int j=1;j<=(n);j++)
 			{
@@ -180,7 +180,7 @@ int solvetableau(int n,int m,float obj[NMAX][EMAX],int *basis)
 		float tempobj[NMAX][EMAX];
 		for(int i=0;i<=m;i++)
 		{
-			for(int j=0;j<=n+m+1;j++)
+			for(int j=0;j<n+m+1;j++)
 			{
 				tempobj[i][j]=0;
 			}
@@ -191,7 +191,7 @@ int solvetableau(int n,int m,float obj[NMAX][EMAX],int *basis)
 		{
 				return pivot_col;
 		}
-		printf("entering variable is X%d",pivot_col);
+		printf("\nentering variable is X%d",pivot_col);
 		
 		int pivot_row = select_row(n,m,obj,pivot_col);
 			for ( int i = 1; i <=m; i++ ) {
@@ -218,7 +218,7 @@ int solvetableau(int n,int m,float obj[NMAX][EMAX],int *basis)
 	//		printf(" pivot row =%d  pivot col=%d\n",pivot_row,pivot_col);
 	//		printf(" pivot number =%f\n",pivot_number);
 	
-		for(int j=0; j<=n+m+1;j++)
+		for(int j=0; j<n+m+1;j++)
 		{
 			tempobj[pivot_row][j]= obj[pivot_row][j]/pivot_number;
 		}
@@ -241,7 +241,7 @@ int solvetableau(int n,int m,float obj[NMAX][EMAX],int *basis)
 		//	printf("%f ",obj[i][j]);
 				
 			}
-			printf("\n");
+			//printf("\n");
 		}
 		/*
 		printf ("\nROW\n");
@@ -282,20 +282,15 @@ int solvetableau(int n,int m,float obj[NMAX][EMAX],int *basis)
 				if(j==0)
 				{
 					if(i==0)
-					{	float tem= -(obj[i][j]);
-						printf("z= %f ",tem);
+					{	//float tem= -(obj[i][j]);
+						//printf("z= %f ",tem);
 					}
 					else
 					printf(" %f ",obj[i][j]);
 				}
 				else if(i==0 && j!=0)
 				{
-					if(obj[i][j]>0)
-					printf(" + %fX%d ",obj[i][j],j);	
-					else if(obj[i][j]<0)
-					printf(" %fX%d ",obj[i][j],j);	
-					else if(obj[i][j]==0)
-					printf(" + %fX%d ",obj[i][j],j);	
+					
 				}	
 				
 				else if(j==basis[i])
@@ -322,7 +317,18 @@ int solvetableau(int n,int m,float obj[NMAX][EMAX],int *basis)
 			printf("\n");
     	}
     
-	 
+	 	float tem= -(obj[0][0]);
+						printf("z= %f ",tem);
+    		for(int j=1;j<n+m+1;j++)
+    		{
+    				if(obj[0][j]>0)
+					printf(" + %fX%d ",obj[0][j],j);	
+					else if(obj[0][j]<0)
+					printf(" %fX%d ",obj[0][j],j);	
+					else if(obj[0][j]==0)
+					printf(" + %fX%d ",obj[0][j],j);	
+    		}
+
 	
 	
 		pivot_col = select_column(n,m,obj);
@@ -585,9 +591,9 @@ int createfeasible(int n,int m,float obj[NMAX][EMAX],int *basis)
     	}
 		*/
 		//printf("n=%d m=%d \n",n,m);
-		for(int i=0;i<(m+1);i++)
+		for(int i=1;i<(m+1);i++)
 		{	
-			if(i!=0)
+			//if(i!=0)
 			printf(" X%d = ",basis[i]);
 				
 			for(int j=0;j<=(n+m+1);j++)
@@ -595,20 +601,14 @@ int createfeasible(int n,int m,float obj[NMAX][EMAX],int *basis)
 				if(j==0)
 				{
 					if(i==0)
-					{	float tem= -(obj[i][j]);
-						printf("z= %f ",tem);
+					{	
 					}
 					else
 					printf(" %f ",obj[i][j]);
 				}
-				else if(i==0 && j!=0)
+				if(i==0 && j!=0)
 				{
-					if(obj[i][j]>0)
-					printf(" + %fX%d ",obj[i][j],j);	
-					else if(obj[i][j]<0)
-					printf(" %fX%d ",obj[i][j],j);	
-					else if(obj[i][j]==0)
-					printf(" + %fX%d ",obj[i][j],j);	
+				
 				}	
 				
 				else if(j==basis[i])
@@ -635,6 +635,18 @@ int createfeasible(int n,int m,float obj[NMAX][EMAX],int *basis)
 			printf("\n");
     	}
     
+    		float tem= -(obj[0][0]);
+						printf("z= %f ",tem);
+    		for(int j=1;j<=n+m+1;j++)
+    		{
+    				if(obj[0][j]>0)
+					printf(" + %fX%d ",obj[0][j],j);	
+					else if(obj[0][j]<0)
+					printf(" %fX%d ",obj[0][j],j);	
+					else if(obj[0][j]==0)
+					printf(" + %fX%d ",obj[0][j],j);	
+    		}
+    		
 	
 }
 
@@ -747,20 +759,15 @@ int solvetableau1(int n,int m,float obj[NMAX][EMAX],int *basis)
 				if(j==0)
 				{
 					if(i==0)
-					{	float tem= -(obj[i][j]);
-						printf("z= %f ",tem);
+					{	//float tem= -(obj[i][j]);
+						//printf("z= %f ",tem);
 					}
 					else
 					printf(" %f ",obj[i][j]);
 				}
 				else if(i==0 && j!=0)
 				{
-					if(obj[i][j]>0)
-					printf(" + %fX%d ",obj[i][j],j);	
-					else if(obj[i][j]<0)
-					printf(" %fX%d ",obj[i][j],j);	
-					else if(obj[i][j]==0)
-					printf(" + %fX%d ",obj[i][j],j);	
+				
 				}	
 				
 				else if(j==basis[i])
@@ -787,7 +794,18 @@ int solvetableau1(int n,int m,float obj[NMAX][EMAX],int *basis)
 			printf("\n");
     	}
     
-	 
+		float tem= -(obj[0][0]);
+						printf("z= %f ",tem);
+    		for(int j=1;j<=n+m+1;j++)
+    		{
+    				if(obj[0][j]>0)
+					printf(" + %fX%d ",obj[0][j],j);	
+					else if(obj[0][j]<0)
+					printf(" %fX%d ",obj[0][j],j);	
+					else if(obj[0][j]==0)
+					printf(" + %fX%d ",obj[0][j],j);	
+    		}
+ 
 	
 	
 		pivot_col = select_column(n,m,obj);
@@ -813,20 +831,15 @@ int calculateobj(int n,int m,float obj[NMAX][EMAX],int *basis){
 				if(j==0)
 				{
 					if(i==0)
-					{	float tem= -(obj[i][j]);
-						printf("z= %f ",tem);
+					{	//float tem= -(obj[i][j]);
+						//printf("z= %f ",tem);
 					}
 					else
 					printf(" %f ",obj[i][j]);
 				}
 				else if(i==0 && j!=0)
 				{
-					if(obj[i][j]>0)
-					printf(" + %fX%d ",obj[i][j],j);	
-					else if(obj[i][j]<0)
-					printf(" %fX%d ",obj[i][j],j);	
-					else if(obj[i][j]==0)
-					printf(" + %fX%d ",obj[i][j],j);	
+					
 				}	
 				
 				else if(j==basis[i])
@@ -852,6 +865,17 @@ int calculateobj(int n,int m,float obj[NMAX][EMAX],int *basis){
 			}
 			printf("\n");
     	}
+		float tem= -(obj[0][0]);
+						printf("z= %f ",tem);
+    		for(int j=1;j<=n+m+1;j++)
+    		{
+    				if(obj[0][j]>0)
+					printf(" + %fX%d ",obj[0][j],j);	
+					else if(obj[0][j]<0)
+					printf(" %fX%d ",obj[0][j],j);	
+					else if(obj[0][j]==0)
+					printf(" + %fX%d ",obj[0][j],j);	
+    		}
     
 	
 }
